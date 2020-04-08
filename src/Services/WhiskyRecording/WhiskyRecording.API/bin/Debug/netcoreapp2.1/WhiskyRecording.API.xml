@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WhiskyRecording.API</name>
+    </assembly>
+    <members>
+        <member name="M:WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.IdentifiedCommandHandler`2.CreateResultForDuplicateRequest">
+            <summary>
+            Creates the result value to return if a previous request was found
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.IdentifiedCommandHandler`2.Handle(WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.IdentifiedCommand{`0,`1},System.Threading.CancellationToken)">
+            <summary>
+            This method handles the command. It just ensures that no other request exists with the same ID, and if this is the case
+            just enqueues the original inner command.
+            </summary>
+            <param name="message">IdentifiedCommand which contains both original command and request ID</param>
+            <returns>Return value of inner command or default value if request same ID was found</returns>
+        </member>
+        <member name="M:WhiskyRecording.API.Controllers.DistilleriesController.CreateDistillery(WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.CreateDistilleryCommand,System.String)">
+             <summary>
+             建立蒸餾場條目
+             </summary>
+             
+             <remarks>
+             Sample request:
+             
+                 POST api/Distilleries/CreateDistillery
+                 {
+                    "chineseTraditional" : "阿貝",
+                    "chineseSimplified" : "阿贝",
+                    "english" : "Ardbeg",
+                    "established" : "1815",
+                    "introdution" : "單一麥芽威士忌酒廠，1815年創廠時便受到各方關注...",
+                    "smwsCode" : "33"
+                 } 
+                 
+             </remarks>
+             
+             <param name="command">
+             
+             </param>
+            
+             <param name="requestId">
+             </param> 
+             
+             
+        </member>
+        <member name="M:WhiskyRecording.API.Controllers.WhiskiesController.CreateWhiskyRecord(WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.CreateWhiskyRecordCommand,System.String)">
+             <summary>
+             建立威士忌條目
+             </summary>
+             
+             <remarks>
+             Sample request:
+             
+                 POST api/Whiskies/CreateWhiskyRecord
+                 {
+                    "distilleryName": "阿貝",
+                    "whiskyNameChinese": "阿貝 1979 GM 26年 地圖標",
+                    "WhiskyNameEnglish" : "Ardbeg 1979 GM Connoisseurs Choice",
+                    "whiskyBottler" : "Gordon MacPhail",
+                    "vintage" : "1979",
+                    "statedAge" : 26,
+                    "caskType" : "波本 Barrels(二次充填)",
+                    "strength" : 0.43,
+                    "size":  700,
+                    "rating" : 88.67,
+                    "notes" : "地圖標"
+                 } 
+             </remarks>
+             
+             <param name="command">
+             
+             </param>
+            
+             <param name="requestId">
+             </param> 
+             
+             
+        </member>
+        <member name="M:WhiskyRecording.API.Controllers.WhiskiesController.UpdateWhiskyRecord(WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.UpdateWhiskyRecordCommand,System.String)">
+             <summary>
+             更新威士忌條目
+             </summary>
+             
+             <remarks>
+             Sample request:
+             
+                 POST api/Whiskies/CreateWhiskyRecord
+                 {
+                    "whiskyId": "a19bcf213",
+                    "DistilleryName" : "阿貝",
+                    "whiskyNameChinese": "阿貝 1974 #2743",
+                    "WhiskyNameEnglish" : "Ardbeg 1974 #2743",
+                    "whiskyBottler" : "官方",
+                    "vintage" : "1974",
+                    "bottled" : "2005",
+                    "statedAge" : 31,
+                    "caskType" : "波本 豬頭",
+                    "caskNumber" : "2743",
+                    "NumberOfBottles" : 106,
+                    "strength" : 0.517,
+                    "size" : 700,
+                    "market" : "無特別註明", 
+                    "rating" : 93.5,
+                    "notes" : "無備註"
+                 } 
+             </remarks>
+             
+             <param name="command">
+             
+             </param>
+            
+             <param name="requestId">
+             </param> 
+             
+             
+        </member>
+        <member name="M:WhiskyRecording.API.Controllers.WhiskiesController.UpdateWhiskyPrice(WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.UpdateWhiskyPriceCommand,System.String)">
+             <summary>
+             更新威士忌價格
+             </summary>
+             
+             <remarks>
+             Sample request:
+             
+                 POST api/Whiskies/UpdateWhiskyPrice
+                 {
+                    "WhiskyId": "abcd-123a-567fabc",
+                    "Price": 12500,
+                    "CurrencyId" : 4,
+                    "PriceReferenceId" :3,
+                    "PriceDateYear" : 2019,
+                    "PriceDateMonth" : 5,
+                    "PriceDateDay" : 6
+                    "Seller" : "Mr. Huang"
+                 } 
+                           
+             Currency Id :
+                 GBP = 1
+                 EUR = 2
+                 USD = 3
+                 TWD = 4
+                 RMB = 5
+                 YEN = 6
+                 
+             PriceReference Id :
+                 FacebookPublic  = 1
+                 FacebookPrivate = 2
+                 FacebookAuction = 3
+                 EuropeanAuction = 4
+                 ChineseAuction  = 5
+                 JapaneseAuction = 6
+                 Other           = 7
+             </remarks>
+             
+             <param name="command">
+             
+             </param>
+            
+             <param name="requestId">
+             </param> 
+             
+             
+        </member>
+        <member name="M:WhiskyRecording.API.Controllers.WhiskiesController.UpdateWhiskyImage(WhiskyArchive.Services.WhiskyRecording.API.Application.Commands.UpdateWhiskyImageCommand,System.String)">
+             <summary>
+             更新威士忌圖片
+             </summary>
+             
+             <remarks>
+             Sample request:
+             
+                 POST api/Whiskies/UpdateWhiskyImage
+                 {
+                    "WhiskyId": "abcd-123a-567fabc",
+                    "Urls":[
+                    "https://i.imgur.com/Adce0Tt.jpg"
+                    ]
+                 } 
+             </remarks>
+             
+             <param name="command">
+             
+             </param>
+            
+             <param name="requestId">
+             </param> 
+             
+             
+        </member>
+    </members>
+</doc>

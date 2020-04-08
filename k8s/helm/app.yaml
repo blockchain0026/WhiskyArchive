@@ -1,0 +1,19 @@
+# This helm values file defines app-based settings
+# Charts use those values, so this file **MUST** be included in all chart releases
+
+
+app:                                                  # app global settings
+  name: "whiskyarchive"                                    # Override for custom app name
+  ingress:                                            # ingress related settings
+    entries:
+      whiskyrecording: whiskyrecording-api            # ingress entry for whiskyrecording api
+      identity: identity                              # ingress entry for identity api
+      mvc: webmvc                                     # ingress entry for web mvc
+      webwhiskyarchiveapigw: webwhiskyarchiveapigw    # ingress entry for web whiskyarchive Agw
+      webwhiskyarchiveagg: webwhiskyarchiveagg        # ingress entry for web whiskyarchive aggregator
+  svc:
+      whiskyrecording: whiskyrecording                  # service name for whiskyrecording api
+      identity: identity                                # service name for identity api
+      mvc: webmvc                                       # service name for web mvc
+      webwhiskyarchiveapigw: webwhiskyarchiveapigw      # service name for web whiskyarchive Agw
+      webwhiskyarchiveagg: webwhiskyarchiveagg          # service name for web whiskyarchive aggregator

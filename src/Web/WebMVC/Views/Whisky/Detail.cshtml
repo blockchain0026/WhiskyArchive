@@ -1,0 +1,313 @@
+﻿@using WebMVC.ViewModels
+@model WebMVC.ViewModels.Whisky
+@{
+    ViewData["Title"] = "Whisky Detail";
+}
+
+<!------ Include the above in your HEAD tag ---------->
+<div class="container my-lg-5 rounded ">
+
+    <div class="card bg-light box-shadow rounded">
+        <div class="row">
+            <aside class="col-sm-5 border-right">
+                <article class="gallery-wrap">
+
+
+                    <a href="#"><img class="card-img-top" src="@(Model.WhiskyImages.ElementAtOrDefault(0)!=null?Model.WhiskyImages.First():Url.Content("~/images/whisky_default.png"))"></a>
+
+                    <div class="img-small-wrap">
+                        @foreach (var image in Model.WhiskyImages)
+                        {
+                            <div class="item-gallery"> <img src="@image"> </div>
+
+                        }
+
+                    </div> <!-- slider-nav.// -->
+                </article> <!-- gallery-wrap .end// -->
+            </aside>
+            <aside class="col-sm-7">
+                <article class="card-body p-5">
+                    <h3 class="title mb-3">@Model.WhiskyNameChinese</h3>
+                    <h6>@Model.WhiskyNameEnglish</h6>
+
+
+
+                    <p class="price-detail-wrap">
+
+                        <span class="price h3 text-warning">
+                            <span class="currency">
+                                @if (Model.WhiskyPrices.Any(c => c.Currency == "TWD"))
+                                {
+
+                                    var price = Model.WhiskyPrices.Last();
+                                    @price.Currencies.Where(c => c.Value == "TWD").Single().Text;
+                                }
+                            </span>
+
+                            <span class="num">
+                                @if (Model.WhiskyPrices.Any(c => c.Currency == "TWD"))
+                                {
+                                    @Model.WhiskyPrices.Last(p => p.Currency == "TWD").Price.ToString("N0")
+                                }
+                                else
+                                {
+                                    var a = "-";
+                                    @a.ToString()
+                                }
+                            </span>
+                        </span>
+                        <span>
+                            價格紀錄日期
+                            @if (Model.WhiskyPrices.Any(c => c.Currency == "TWD"))
+                            {
+
+                                var price = Model.WhiskyPrices.Last(p => p.Currency == "TWD");
+
+                                var date = price.PriceDateYear + "/" + price.PriceDateMonth + "/" + price.PriceDateDay;
+
+                                @date
+                            }
+                        </span>
+                    </p> <!-- price-detail-wrap .// -->
+                    @if (Model.WhiskyPrices.Any(c => c.Currency == "GBP"))
+                    {
+                        <p class="price-detail-wrap">
+
+                            <span class="price h3 text-warning">
+                                <span class="currency">
+                                    @if (Model.WhiskyPrices.Any(c => c.Currency == "GBP"))
+                                    {
+
+                                        var price = Model.WhiskyPrices.Last();
+                                        @price.Currencies.Where(c => c.Value == "GBP").Single().Text;
+                                    }
+                                </span>
+
+                                <span class="num">
+                                    @if (Model.WhiskyPrices.Any(c => c.Currency == "GBP"))
+                                    {
+                                        @Model.WhiskyPrices.Last(p => p.Currency == "GBP").Price.ToString("N2")
+                                    }
+                                    else
+                                    {
+                                        var a = "-";
+                                        @a.ToString()
+                                    }
+                                </span>
+                            </span>
+                            <span>
+                                價格紀錄日期
+                                @if (Model.WhiskyPrices.Any(c => c.Currency == "GBP"))
+                                {
+
+                                    var price = Model.WhiskyPrices.Last(p => p.Currency == "GBP");
+
+                                    var date = price.PriceDateYear + "/" + price.PriceDateMonth + "/" + price.PriceDateDay;
+
+                                    @date
+                                }
+                            </span>
+                        </p> <!-- price-detail-wrap .// -->
+                    }
+
+
+                    <dl class="item-property">
+                        <dt> 描述 </dt>
+                        <dd>
+                            <p>
+                                來自 @Model.Distillery 蒸餾廠
+                                @if (!string.IsNullOrEmpty(Model.Bottler))
+                                {
+                                    var text = "，" + Model.Bottler + "裝瓶";
+                                    @text.ToString()
+                                }
+                                @if (Model.StatedAge != null)
+                                {
+                                    @if (!string.IsNullOrEmpty(Model.CaskType))
+                                    {
+                                        var text = "，" + Model.StatedAge + "年" + Model.CaskType + "陳釀";
+                                        @text
+                                    }
+                                    else
+                                    {
+                                        var text = "，" + Model.StatedAge + "年陳釀";
+                                        @text
+                                    }
+                                }
+                                @if (Model.Strength != 0)
+                                {
+                                    if (Model.Size != 0)
+                                    {
+                                        var text = "，" + (Model.Strength * 100).ToString() + "%強度、" + Model.Size.ToString() + "ML";
+                                        @text
+                                    }
+                                    else
+                                    {
+                                        var text = "，" + (Model.Strength * 100).ToString() + "%強度";
+                                        @text
+                                    }
+                                }
+                                @if (!string.IsNullOrEmpty(Model.CaskNumber))
+                                {
+                                    var text = "，桶號" + Model.CaskNumber;
+                                    @text
+                                }
+
+                                @if (Model.WhiskyBaseRating != 0)
+                                {
+                                    var rating = Model.WhiskyBaseRating;
+                                    var threshold = 90;
+                                    var text = "，" + "Whisky Base " + rating.ToString();
+                                    if (rating > threshold)
+                                    {
+                                        text += " 高分";
+                                    }
+                                    else
+                                    {
+                                        text += " 評分";
+                                    }
+
+                                    @text
+                                }
+
+                                @if (Model.NumOfBottles != null)
+                                {
+                                    var text = "，限量" + Model.NumOfBottles.ToString() + "瓶";
+                                    @text
+                                }
+
+                                。
+                            </p>
+                        </dd>
+                    </dl>
+
+                    <div class="row">
+                        <dl class="col-sm-3 param param-feature">
+                            <dt>蒸餾廠</dt>
+                            <dd>@Model.Distillery</dd>
+                        </dl>  <!-- item-property-hor .// -->
+
+                        @if (!string.IsNullOrEmpty(Model.Bottler))
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>裝瓶廠</dt>
+                                <dd>@Model.Bottler</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Vintage))
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>年份</dt>
+                                <dd>@Model.Vintage</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Bottled))
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>裝瓶日期</dt>
+                                <dd>@Model.Bottled</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                    </div>
+
+                    <div class="row">
+                        @if (Model.StatedAge != null)
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>陳年</dt>
+                                <dd>@Model.StatedAge 年</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CaskType))
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>橡木桶</dt>
+                                <dd>@Model.CaskType</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CaskNumber))
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>桶號</dt>
+                                <dd>@Model.CaskNumber</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (Model.NumOfBottles != null)
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>發行量</dt>
+                                <dd>@Model.NumOfBottles</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                    </div>
+
+                    <div class="row">
+
+                        @if (Model.Strength != 0)
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>強度</dt>
+                                <dd>@Model.Strength</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (Model.Size != 0)
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>大小</dt>
+                                <dd>@Model.Size</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Market))
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>市場</dt>
+                                <dd>@Model.Market</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                        @if (Model.WhiskyBaseRating != 0)
+                        {
+                            <dl class="col-sm-3 param param-feature">
+                                <dt>評分</dt>
+                                <dd>@Model.WhiskyBaseRating</dd>
+                            </dl> <!-- item-property-hor .// -->
+                        }
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Notes))
+                    {
+                        <dl class="param param-feature">
+                            <dt>備註</dt>
+                            <dd>@Model.Notes</dd>
+                        </dl> <!-- item-property-hor .// -->
+                    }
+
+                    <div class="w-100 text-right text-muted">
+
+                        <dl class="param param-feature">
+                            <dt>最後更新</dt>
+                            <dd>@Model.DateUpdated.ToShortDateString()</dd>
+                        </dl>  <!-- item-property-hor .// -->
+
+
+                    </div>
+
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-controller="Whisky" asp-action="Update" method="get">
+
+
+                            <input class="btn btn-outline-primary w-100 my-2  @((!User.Identity.IsAuthenticated) ? "is-disabled" : "")" type="submit" value="更改" />
+                            <input type="hidden" asp-for="@Model.WhiskyId" name="whiskyId" />
+                        </form>
+
+                    }
+
+                </article> <!-- card-body.// -->
+            </aside> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- card.// -->
+
+</div>
+<!--container.//-->

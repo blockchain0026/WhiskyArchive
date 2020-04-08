@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: whiskyarchive
+    component: identity
+  name: identity
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: whiskyarchive
+    component: identity
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: whiskyarchive
+    component: whiskyrecording
+  name: whiskyrecording
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: whiskyarchive
+    component: whiskyrecording
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: whiskyarchive
+    component: webwhiskyarchiveagg
+  name: webwhiskyarchiveagg
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: whiskyarchive
+    component: webwhiskyarchiveagg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: whiskyarchive
+    component: webmvc
+  name: webmvc
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: whiskyarchive
+    component: webmvc

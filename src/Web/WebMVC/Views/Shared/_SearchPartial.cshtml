@@ -1,0 +1,9 @@
+﻿@{
+    @model WebMVC.ViewModels.WhiskyViewModels.IndexViewModel
+}
+
+<form class="form-inline my-2 my-md-0" asp-action="Index" asp-controller="Whisky" method="post">
+    <input class="form-control mr-sm-2 bg-transparent text-white-50" asp-for="Name" type="text" placeholder="搜尋威士忌" aria-label="Search"/>
+    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+
+</form>

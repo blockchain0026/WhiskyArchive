@@ -1,0 +1,163 @@
+﻿@model WebMVC.ViewModels.CalculationViewModels.IndexViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>成本計算</title>
+</head>
+<body>
+    <main class="container" style="min-height:1000px;">
+        <div class="w-100 border-bottom border-gray bg-white box-shadow rounded my-3" style="background: #ECE9E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+">
+            <div class="container w-100 py-2 my-1" style="">
+
+                <h4 class="text-dark w-100 text-center navbar-light font-weight-bold my-0">
+                    歐拍成本計算
+                </h4>
+
+            </div>
+
+
+            <div class="container text-dark  pb-0 mb-0">
+
+
+
+                <div class="pb-0 mb-0 p-3" id="filter">
+                    <form asp-action="Calculate" asp-controller="Calculation" method="post" class=" pb-0 mb-0">
+                        <div class="form-row  pb-0 mb-0">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label asp-for="Auction" class="control-label">欲計算的歐拍</label>
+                                    <select asp-for="Auction" asp-items="@Model.Auctions" class="form-control form-input rounded"></select>
+                                    <span asp-validation-for="Auction" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="WinPrice" class="control-label">得標價</label>
+                                    <div class="input-group mb-2">
+                                        <input asp-for="WinPrice" class="form-control form-input rounded" />
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">英鎊</div>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="WinPrice" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row  pb-0 mb-0 align-content-center">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label asp-for="Strength" class="control-label">強度</label>
+                                    <div class="input-group mb-2">
+                                        <input asp-for="Strength" class="form-control form-input-small" />
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">%</div>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="Strength" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label asp-for="Size" class="control-label">大小</label>
+                                    <div class="input-group mb-2">
+                                        <input asp-for="Size" class="form-control form-input-small" />
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">ML</div>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="Size" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label asp-for="WinLots" class="control-label">得標瓶數</label>
+                                    <div class="input-group mb-2">
+                                        <input asp-for="WinLots" class="form-control form-input-small" />
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">瓶</div>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="WinLots" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="ExchangeRate" class="control-label">匯率</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">台幣 1 :</div>
+                                        </div>
+                                        <input asp-for="ExchangeRate" class="form-control" />
+
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">英鎊</div>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="ExchangeRate" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row  p-0 my-2">
+                            <div class="col-sm-2 mr-2">
+                                <div class="form-group flex-group">
+                                    <label asp-for="ExchangeRate" class="control-label">運送保證</label>
+
+                                    <label class="switch">
+                                        <input asp-for="Insurance" class="default" />
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <span asp-validation-for="ExchangeRate" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2 mr-2">
+                                <div class="form-group flex-group">
+                                    <label asp-for="ExchangeRate" class="control-label">代墊費</label>
+
+                                    <label class="switch">
+                                        <input asp-for="UseAdvancePayment" class="default" />
+                                        <span class="slider round"></span>
+                                    </label>
+
+                                    <span asp-validation-for="ExchangeRate" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        
+                        
+                        <div class="form-row  pb-0 mb-0">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="submit" value="計算" class="btn btn-outline-info w-100" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+        @Html.Partial("_result", Model.CalculationResults)
+
+    </main>
+
+
+</body>
+</html>

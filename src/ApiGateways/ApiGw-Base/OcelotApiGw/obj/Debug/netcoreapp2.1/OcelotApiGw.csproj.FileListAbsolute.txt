@@ -1,0 +1,15 @@
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\bin\Debug\netcoreapp2.1\OcelotApiGw.deps.json
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\bin\Debug\netcoreapp2.1\OcelotApiGw.runtimeconfig.json
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\bin\Debug\netcoreapp2.1\OcelotApiGw.runtimeconfig.dev.json
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\bin\Debug\netcoreapp2.1\OcelotApiGw.dll
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\bin\Debug\netcoreapp2.1\OcelotApiGw.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.RazorAssemblyInfo.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.RazorAssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.AssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.RazorTargetAssemblyInfo.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.dll
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw\obj\Debug\netcoreapp2.1\OcelotApiGw.csprojAssemblyReference.cache

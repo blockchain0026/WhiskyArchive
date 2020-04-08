@@ -1,0 +1,17 @@
+{{- $name := include "webwhiskyarchiveagg.fullname" . -}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "webwhiskyarchiveagg.name" . }}
+    chart: {{ template "webwhiskyarchiveagg.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  all_EnableLoadTest: "{{ .Values.inf.misc.useLoadTest }}"
+  internalurls__identity: http://{{ .Values.app.svc.identity }}
+  internalurls__whiskyrecording: http://{{ .Values.app.svc.whiskyrecording }}
+  internalurls__identity__hc: http://{{ .Values.app.svc.identity }}/hc
+  internalurls__whiskyrecording__hc: http://{{ .Values.app.svc.whiskyrecording }}/hc

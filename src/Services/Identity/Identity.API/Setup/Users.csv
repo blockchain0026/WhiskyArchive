@@ -1,0 +1,2 @@
+Nickname,CardNumber,Email,PhoneNumber,UserName,NormalizedEmail,NormalizedUserName,Password
+DemoUser,4.01289E+15,demouser@microsoft.com,1234567890,demouser@microsoft.com,DEMOUSER@MICROSOFT.COM,DEMOUSER@MICROSOFT.COM,Pass@word1

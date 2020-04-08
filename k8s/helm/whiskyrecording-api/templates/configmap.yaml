@@ -1,0 +1,22 @@
+{{- $name := include "whiskyrecording-api.fullname" . -}}
+{{- $sqlsrv := include "sql-name" . -}}
+{{- $identity := include "url-of" (list .Values.app.ingress.entries.identity .) -}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "whiskyrecording-api.name" . }}
+    chart: {{ template "whiskyrecording-api.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  whiskyrecording__ConnectionString: Server={{ $sqlsrv }};Initial Catalog={{ .Values.inf.sql.whiskyrecording.db }};User Id={{ .Values.inf.sql.common.user }};Password={{ .Values.inf.sql.common.pwd }};
+  whiskyrecording__EnableLoadTest: "{{ .Values.inf.misc.useLoadTest }}"
+  internalurls__apigwww__hc: http://{{ .Values.app.svc.webwhiskyarchiveapigw }}/hc
+  internalurls__identity__hc: http://{{ .Values.app.svc.identity }}/hc
+  internalurls__whiskyrecording__hc: http://{{ .Values.app.svc.whiskyrecording }}/hc
+  urls__IdentityUrl: http://{{ $identity }}
+  all__EventBusConnection: {{ .Values.inf.eventbus.constr }}
+  all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"

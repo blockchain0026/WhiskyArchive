@@ -1,0 +1,8 @@
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\bin\Debug\netstandard2.0\WhiskyRecording.Domain.deps.json
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\bin\Debug\netstandard2.0\WhiskyRecording.Domain.dll
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\bin\Debug\netstandard2.0\WhiskyRecording.Domain.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\obj\Debug\netstandard2.0\WhiskyRecording.Domain.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\obj\Debug\netstandard2.0\WhiskyRecording.Domain.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\obj\Debug\netstandard2.0\WhiskyRecording.Domain.AssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\obj\Debug\netstandard2.0\WhiskyRecording.Domain.dll
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Domain\obj\Debug\netstandard2.0\WhiskyRecording.Domain.pdb

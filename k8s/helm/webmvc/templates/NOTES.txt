@@ -1,0 +1,2 @@
+WhiskyArchive WebMVC installed.
+-----------------------

@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+  sql.data:
+    image: microsoft/mssql-server-linux:2017-latest
+
+  rabbitmq:
+    image: rabbitmq:3.7.2-management
+
+  identity.api:
+    image: ${REGISTRY:-whiskyarchive}/identity.api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/Services/Identity/Identity.API/Dockerfile
+    depends_on:
+      - sql.data
+
+  whiskyrecording.api:
+    image: ${REGISTRY:-whiskyarchive}/whiskyrecording.api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/Services/WhiskyRecording/WhiskyRecording.API/Dockerfile
+    depends_on:
+      - sql.data
+      - rabbitmq
+      - identity.api
+
+  webmvc:
+    image: ${REGISTRY:-whiskyarchive}/webmvc:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/Web/WebMVC/Dockerfile
+    depends_on:
+      - webwhiskyarchiveagg
+      - webwhiskyarchiveapigw
+
+  webwhiskyarchiveapigw:
+    image: ${REGISTRY:-whiskyarchive}/ocelotapigw:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/ApiGateways/ApiGw-Base/OcelotApiGw/Dockerfile
+    depends_on:
+      - sql.data
+      - identity.api
+      - rabbitmq
+      - whiskyrecording.api
+
+
+  webwhiskyarchiveagg:
+    image: ${REGISTRY:-whiskyarchive}/webwhiskyarchiveagg:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/ApiGateways/Web.Bff.WhiskyArchive/Web.WhiskyArchive.HttpAggregator/Dockerfile
+    depends_on:
+      - sql.data
+      - identity.api
+      - rabbitmq
+      - whiskyrecording.api

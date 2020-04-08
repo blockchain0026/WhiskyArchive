@@ -1,0 +1,403 @@
+﻿@using WebMVC.Services
+@using WebMVC.ViewModels
+
+@model WebMVC.ViewModels.WhiskyViewModels.CreateViewModel
+@inject IIdentityParser<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "New Whisky";
+}
+
+
+
+<main class="bg-light text-dark py-5">
+
+    <div class="container bg-light border-white shadow border pb-3 rounded">
+        <div class="py-5 text-center text-dark">
+            <img class="d-block mx-auto mb-4" src="~/images/brand.png" alt="" width="72" height="72">
+            <h2>建立威士忌</h2>
+            @Html.Partial("_Header", new List<Header>() { new Header() { Controller = "Whiksy", Text = "Back to whisky" } })
+            <p class="lead"></p>
+
+
+        </div>
+
+        <form method="post" enctype="multipart/form-data" asp-controller="Whisky" asp-action="Create">
+            <h4 class="mb-3">圖片</h4>
+            <div class="row container mb-3">
+
+                <div class="modal-body">
+                    <input type="file" name="txt_file" id="txt_file" multiple class="file-loading" />
+                </div>
+                <environment names="Development">
+
+                    <script>
+
+                            @{
+                                if (!string.IsNullOrEmpty(Model.ImageOne))
+                                {
+                                    ViewData["ElementImageOne"] = $"<img src='{Model.ImageOne}' class='file-preview-image kv-preview-data'>";
+                                }
+                                if (!string.IsNullOrEmpty(Model.ImageTwo))
+                                {
+                                    ViewData["ElementImageTwo"] = $"<img src='{Model.ImageTwo}' class='file-preview-image kv-preview-data'>";
+                                }
+                                if (!string.IsNullOrEmpty(Model.ImageThree))
+                                {
+                                    ViewData["ElementImageThree"] = $"<img src='{Model.ImageThree}' class='file-preview-image kv-preview-data' >";
+                                }
+                            }
+
+
+                            var control = $("#txt_file");
+                            var uploadrul = "/Whisky/UploadFile";
+                            control.fileinput({
+                                language: 'zh', //设置语言
+                                uploadUrl: uploadrul, //上传的地址
+                                allowedFileExtensions: ['jpg', 'gif', 'png', 'jpeg'],//接收的文件后缀
+                                showUpload: true, //显示批量上传按钮
+                                showCaption: false,//是否显示标题
+                                browseClass: "btn btn-primary", //按钮样式
+                                dropZoneEnabled: true,//是否显示拖拽区域
+                                //minImageWidth: 50, //图片的最小宽度
+                                //minImageHeight: 50,//图片的最小高度
+                                //maxImageWidth: 1000,//图片的最大宽度
+                                //maxImageHeight: 1000,//图片的最大高度
+                                //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+                                //minFileCount: 0,
+                                maxFileCount: 6,
+                                enctype: 'multipart/form-data',
+                                validateInitialCount: true,
+                                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                                msgFilesTooMany: "上傳的圖片數量({n}) 超過最大數量{m}！",
+                                overwriteInitial:false,
+                                initialPreview: [
+                                    "@Html.Raw(ViewData["ElementImageOne"])",
+                                    "@Html.Raw(ViewData["ElementImageTwo"])",
+                                    "@Html.Raw(ViewData["ElementImageThree"])"
+                                ]
+
+                            });
+                            //导入文件上传完成之后的事件
+                            $("#txt_file").on("fileuploaded", function (event, data, previewId, index) {
+                                var imageOne = $("#imageOne").val();
+                                var imageTwo = $("#imageTwo").val();
+                                var imageThree = $("#imageThree").val();
+
+                                if (!imageOne) {
+                                    $("#imageOne").val("/images/whiskies/" + data.response.fileName);
+                                }
+                                else if (!imageTwo) {
+                                    $("#imageTwo").val("/images/whiskies/" + data.response.fileName);
+                                }
+                                else if (!imageThree) {
+                                    $("#imageThree").val("/images/whiskies/" + data.response.fileName);
+                                }
+                            });
+                    </script>
+
+                </environment>
+                <environment names="Staging,Production">
+
+                    <script>
+
+                            @{
+                                if (!string.IsNullOrEmpty(Model.ImageOne))
+                                {
+                                    ViewData["ElementImageOne"] = $"<img src='{Model.ImageOne}' class='file-preview-image kv-preview-data'>";
+                                }
+                                if (!string.IsNullOrEmpty(Model.ImageTwo))
+                                {
+                                    ViewData["ElementImageTwo"] = $"<img src='{Model.ImageTwo}' class='file-preview-image kv-preview-data'>";
+                                }
+                                if (!string.IsNullOrEmpty(Model.ImageThree))
+                                {
+                                    ViewData["ElementImageThree"] = $"<img src='{Model.ImageThree}' class='file-preview-image kv-preview-data' >";
+                                }
+                            }
+
+
+                            var control = $("#txt_file");
+                            var uploadrul = "/webmvc/Whisky/UploadFile";
+                            control.fileinput({
+                                language: 'zh', //设置语言
+                                uploadUrl: uploadrul, //上传的地址
+                                allowedFileExtensions: ['jpg', 'gif', 'png', 'jpeg'],//接收的文件后缀
+                                showUpload: true, //显示批量上传按钮
+                                showCaption: false,//是否显示标题
+                                browseClass: "btn btn-primary", //按钮样式
+                                dropZoneEnabled: true,//是否显示拖拽区域
+                                //minImageWidth: 50, //图片的最小宽度
+                                //minImageHeight: 50,//图片的最小高度
+                                //maxImageWidth: 1000,//图片的最大宽度
+                                //maxImageHeight: 1000,//图片的最大高度
+                                //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+                                //minFileCount: 0,
+                                maxFileCount: 6,
+                                enctype: 'multipart/form-data',
+                                validateInitialCount: true,
+                                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                                msgFilesTooMany: "上傳的圖片數量({n}) 超過最大數量{m}！",
+                                overwriteInitial:false,
+                                initialPreview: [
+                                    "@Html.Raw(ViewData["ElementImageOne"])",
+                                    "@Html.Raw(ViewData["ElementImageTwo"])",
+                                    "@Html.Raw(ViewData["ElementImageThree"])"
+                                ]
+
+                            });
+                            //导入文件上传完成之后的事件
+                            $("#txt_file").on("fileuploaded", function (event, data, previewId, index) {
+                                var imageOne = $("#imageOne").val();
+                                var imageTwo = $("#imageTwo").val();
+                                var imageThree = $("#imageThree").val();
+
+                                if (!imageOne) {
+                                    $("#imageOne").val("/images/whiskies/" + data.response.fileName);
+                                }
+                                else if (!imageTwo) {
+                                    $("#imageTwo").val("/images/whiskies/" + data.response.fileName);
+                                }
+                                else if (!imageThree) {
+                                    $("#imageThree").val("/images/whiskies/" + data.response.fileName);
+                                }
+                            });
+                    </script>
+
+                </environment>
+
+            </div>
+
+            <div class="row">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(err => err.Errors))
+                {
+                    <div class="alert alert-warning" role="alert">
+                        &nbsp;@error.ErrorMessage
+                    </div>
+                }
+            </div>
+            <div class="row">
+
+
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">基本資料</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-1">
+                            <div class="form-group">
+                                <label asp-for="WhiskyNameChinese">*中文名稱</label>
+                                <input asp-for="WhiskyNameChinese" class="form-control form-input rounded" type="text" placeholder="威士忌" />
+                                <span asp-validation-for="WhiskyNameChinese" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-1">
+                            <div class="form-group">
+                                <label asp-for="WhiskyNameEnglish">*英文名稱</label>
+                                <input asp-for="WhiskyNameEnglish" class="form-control form-input rounded" type="text" placeholder="威士忌" />
+                                <span asp-validation-for="WhiskyNameEnglish" class="alert alert-danger" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-4">
+                            <label asp-for="Distillery">蒸餾廠</label>
+                            <select asp-for="Distillery" asp-items="@Model.Distilleries" class="custom-select d-block w-100">
+                                <option value="">Choose...</option>
+                            </select>
+                            <span asp-validation-for="Distillery" class="alert alert-danger" />
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label asp-for="Bottler">裝瓶廠</label>
+                            <input asp-for="Bottler" class="form-control" type="text" placeholder="Ex: 泰斯卡" />
+                            <span asp-validation-for="Bottler" class="alert alert-danger" />
+                        </div>
+                    </div>
+
+                    <h4 class="mb-3">細項</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-1">
+                            <div class="form-group">
+                                <label asp-for="Vintage">年份</label>
+                                <input asp-for="Vintage" class="form-control " type="text" placeholder="YYYY, YYYY/MM/DD" />
+                                <span asp-validation-for="Vintage" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-1">
+                            <div class="form-group">
+                                <label asp-for="Bottled">裝瓶時間</label>
+                                <input asp-for="Bottled" class="form-control " type="text" placeholder="YYYY, YYYY/MM/DD" />
+                                <span asp-validation-for="Bottled" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label asp-for="StatedAge">陳年</label>
+                                <div class="form-inline">
+                                    <input asp-for="StatedAge" class="form-control  form-input-medium" type="text" placeholder="Ex: 18" /> 年
+                                </div>
+                                <span asp-validation-for="StatedAge" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group ">
+                                <label asp-for="CaskType">橡木桶類型</label>
+                                <input asp-for="CaskType" class="form-control form-input-medium" type="text" placeholder="Ex: 波本、重雪莉" />
+                                <span asp-validation-for="CaskType" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label asp-for="CaskNumber">桶號</label>
+                                <input asp-for="CaskNumber" class="form-control form-input-medium" type="text" placeholder="" />
+                                <span asp-validation-for="CaskNumber" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label asp-for="NumOfBottles">發行量</label>
+                                <div class="form-inline">
+                                    <input asp-for="NumOfBottles" class="form-control form-input-medium" type="text" placeholder="" /> 瓶
+                                </div>
+                                <span asp-validation-for="NumOfBottles" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label asp-for="Strength">酒精濃度</label>
+                                <div class="form-inline">
+                                    <input asp-for="Strength" class="form-control form-input-medium" type="text" placeholder="" />%
+                                </div>
+
+                                <span asp-validation-for="Strength" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label asp-for="Size">容量</label>
+                                <input asp-for="Size" class="form-control form-input-medium " type="text" placeholder="" />
+                                <span asp-validation-for="Size" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label asp-for="Market">市場</label>
+                                <input asp-for="Market" class="form-control form-input-medium" type="text" placeholder="Ex: UK限定" />
+                                <span asp-validation-for="Market" class="alert alert-danger" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h4 class="mb-3">其他</h4>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label asp-for="WhiskyBaseRating">Whisky Base 評分</label>
+                                <div class="form-inline">
+                                    <input asp-for="WhiskyBaseRating" class="form-control " type="text" placeholder="" /> 分
+                                </div>
+
+                                <span asp-validation-for="WhiskyBaseRating" class="alert alert-danger" />
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label asp-for="Notes">備註</label>
+                                <input asp-for="Notes" class="form-control" type="text" placeholder="備註" />
+                                <span asp-validation-for="Notes" class="alert alert-danger" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">歷史價格</span>
+                        <span class="badge badge-secondary badge-pill">3</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+
+                                <label asp-for="WhiskyPrices[0].Currency">幣種</label>
+                                <select asp-for="WhiskyPrices[0].Currency" asp-items="@Model.WhiskyPrices[0].Currencies" class="custom-select d-block w-100"></select>
+                                <span asp-validation-for="WhiskyPrices[0].Currency" class="alert alert-danger" />
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <label asp-for="WhiskyPrices[0].PriceReference">參考來源</label>
+                                <select asp-for="WhiskyPrices[0].PriceReference" asp-items="@Model.WhiskyPrices[0].PriceReferences" class="custom-select d-block w-100"></select>
+                                <span asp-validation-for="WhiskyPrices[0].PriceReference" class="alert alert-danger" />
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <label asp-for="WhiskyPrices[0].Seller" class="my-0">賣家</label>
+                                <input asp-for="WhiskyPrices[0].Seller" class="form-control" type="text" />
+                                <small class="text-muted">如無則空白即可</small>
+                                <span asp-validation-for="WhiskyPrices[0].Seller" class="alert alert-danger" />
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <label asp-for="WhiskyPrices[0].Price" class="my-0">價格</label>
+                                <input asp-for="WhiskyPrices[0].Price" class="form-control" type="text" placeholder="$1000" />
+                                <span asp-validation-for="WhiskyPrices[0].Price" class="alert alert-danger" />
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div>
+                                <label asp-for="WhiskyPrices[0].PriceDateYear" class="my-0">價格日期</label>
+                                <div class="row ml-1">
+                                    <div class="form-inline py-2 col-5 row">
+
+                                        <input asp-for="WhiskyPrices[0].PriceDateYear" class="form-control form-input-medium col-md-8" type="text" /><span class="col-sm-2">年</span>
+                                    </div>
+                                    <div class="form-inline py-2  col-5 row">
+                                        <input asp-for="WhiskyPrices[0].PriceDateMonth" class="form-control form-input-medium  col-md-6" type="text" /><span class="col-sm-2">月</span>
+                                    </div>
+                                    <div class="form-inline py-2  col-5 row">
+                                        <input asp-for="WhiskyPrices[0].PriceDateDay" class="form-control form-input-medium col-md-6" type="text" /><span class="col-sm-2">日</span>
+                                    </div>
+
+                                </div>
+
+
+                                <span asp-validation-for="WhiskyPrices[0].PriceDateYear" class="alert alert-danger" />
+                                <span asp-validation-for="WhiskyPrices[0].PriceDateMonth" class="alert alert-danger" />
+                                <span asp-validation-for="WhiskyPrices[0].PriceDateDay" class="alert alert-danger" />
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="card p-2">
+                        <div class="input-group">
+
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="建立" name="action" class="btn btn-outline-primary btn-lg btn-block" />
+
+            <input id="imageOne" asp-for="ImageOne" type="hidden" value="@Model.ImageOne" />
+            <input id="imageTwo" asp-for="ImageTwo" type="hidden" value="@Model.ImageTwo" />
+            <input id="imageThree" asp-for="ImageThree" type="hidden" value="@Model.ImageThree" />
+
+            <input asp-for="RequestId" type="hidden" value="@Guid.NewGuid().ToString()" />
+        </form>
+
+
+    </div>
+
+
+</main>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

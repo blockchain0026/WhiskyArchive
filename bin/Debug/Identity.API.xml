@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Identity.API</name>
+    </assembly>
+    <members>
+        <member name="T:WhiskyArchive.Services.Identity.API.Properties.Resources">
+            <summary>
+              用於查詢當地語系化字串等的強類型資源類別。
+            </summary>
+        </member>
+        <member name="P:WhiskyArchive.Services.Identity.API.Properties.Resources.ResourceManager">
+            <summary>
+              傳回這個類別使用的快取的 ResourceManager 執行個體。
+            </summary>
+        </member>
+        <member name="P:WhiskyArchive.Services.Identity.API.Properties.Resources.Culture">
+            <summary>
+              覆寫目前執行緒的 CurrentUICulture 屬性，對象是所有
+              使用這個強類型資源類別的資源查閱。
+            </summary>
+        </member>
+        <member name="T:Identity.API.Controllers.AccountController">
+            <summary>
+            This sample controller implements a typical login/logout/provision workflow for local and external accounts.
+            The login service encapsulates the interactions with the user data store. This data store is in-memory only and cannot be used for production!
+            The interaction service provides a way for the UI to communicate with identityserver for validation and context retrieval
+            </summary>
+        </member>
+        <member name="M:Identity.API.Controllers.AccountController.Login(System.String)">
+            <summary>
+            Show login page
+            </summary>
+        </member>
+        <member name="M:Identity.API.Controllers.AccountController.Login(WhiskyArchive.Services.Identity.API.Models.AccountViewModels.LoginViewModel)">
+            <summary>
+            Handle postback from username/password login
+            </summary>
+        </member>
+        <member name="M:Identity.API.Controllers.AccountController.Logout(System.String)">
+            <summary>
+            Show logout page
+            </summary>
+        </member>
+        <member name="M:Identity.API.Controllers.AccountController.Logout(WhiskyArchive.Services.Identity.API.Models.AccountViewModels.LogoutViewModel)">
+            <summary>
+            Handle logout page postback
+            </summary>
+        </member>
+        <member name="M:Identity.API.Controllers.AccountController.ExternalLogin(System.String,System.String)">
+            <summary>
+            initiate roundtrip to external authentication provider
+            </summary>
+        </member>
+        <member name="T:Identity.API.Controllers.ConsentController">
+            <summary>
+            This controller implements the consent logic
+            </summary>
+        </member>
+        <member name="M:Identity.API.Controllers.ConsentController.Index(System.String)">
+            <summary>
+            Shows the consent screen
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Identity.API.Controllers.ConsentController.Index(WhiskyArchive.Services.Identity.API.Models.AccountViewModels.ConsentInputModel)">
+            <summary>
+            Handles the consent screen postback
+            </summary>
+        </member>
+        <member name="M:Identity.API.Controllers.HomeController.Error(System.String)">
+            <summary>
+            Shows the error page
+            </summary>
+        </member>
+    </members>
+</doc>

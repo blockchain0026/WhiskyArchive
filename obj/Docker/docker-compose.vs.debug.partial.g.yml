@@ -1,0 +1,96 @@
+version: '3.4'
+
+services:
+  identity.api:
+    image: whiskyarchive/identity.api:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_identity.api$
+    volumes:
+      - C:\Users\User\source\repos\WhiskyArchive\src\Services\Identity\Identity.API:/app
+      - C:\Users\User\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_identity.api$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_identity.api$ bin/Debug/netcoreapp2.1/Identity.API.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+  webmvc:
+    image: whiskyarchive/webmvc:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_webmvc$
+    volumes:
+      - C:\Users\User\source\repos\WhiskyArchive\src\Web\WebMVC:/app
+      - C:\Users\User\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_webmvc$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_webmvc$ bin/Debug/netcoreapp2.1/WebMVC.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+
+  webwhiskyarchiveagg:
+    image: whiskyarchive/webwhiskyarchiveagg:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_webwhiskyarchiveagg$
+    volumes:
+      - C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator:/app
+      - C:\Users\User\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_webwhiskyarchiveagg$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_webwhiskyarchiveagg$ bin/Debug/netcoreapp2.1/Web.WhiskyArchive.HttpAggregator.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+
+  webwhiskyarchiveapigw:
+    image: whiskyarchive/ocelotapigw:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_webwhiskyarchiveapigw$
+    volumes:
+      - C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\ApiGw-Base\OcelotApiGw:/app
+      - C:\Users\User\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_webwhiskyarchiveapigw$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_webwhiskyarchiveapigw$ bin/Debug/netcoreapp2.1/OcelotApiGw.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+
+  whiskyrecording.api:
+    image: whiskyarchive/whiskyrecording.api:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_whiskyrecording.api$
+    volumes:
+      - C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.API:/app
+      - C:\Users\User\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_whiskyrecording.api$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_whiskyrecording.api$ bin/Debug/netcoreapp2.1/WhiskyRecording.API.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+

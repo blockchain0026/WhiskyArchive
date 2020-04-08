@@ -1,0 +1,12 @@
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\bin\Debug\netstandard2.0\WhiskyRecording.Infrastructure.deps.json
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\bin\Debug\netstandard2.0\WhiskyRecording.Infrastructure.dll
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\bin\Debug\netstandard2.0\WhiskyRecording.Infrastructure.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\bin\Debug\netstandard2.0\WhiskyRecording.Domain.dll
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\bin\Debug\netstandard2.0\WhiskyRecording.Domain.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\obj\Debug\netstandard2.0\WhiskyRecording.Infrastructure.csprojAssemblyReference.cache
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\obj\Debug\netstandard2.0\WhiskyRecording.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\obj\Debug\netstandard2.0\WhiskyRecording.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\obj\Debug\netstandard2.0\WhiskyRecording.Infrastructure.AssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\obj\Debug\netstandard2.0\WhiskyRecording.Infrastructure.csproj.CopyComplete
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\obj\Debug\netstandard2.0\WhiskyRecording.Infrastructure.dll
+C:\Users\User\source\repos\WhiskyArchive\src\Services\WhiskyRecording\WhiskyRecording.Infrastructure\obj\Debug\netstandard2.0\WhiskyRecording.Infrastructure.pdb

@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\bin\Debug\netcoreapp2.1\WebHost.Customization.deps.json
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\bin\Debug\netcoreapp2.1\WebHost.Customization.runtimeconfig.json
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\bin\Debug\netcoreapp2.1\WebHost.Customization.runtimeconfig.dev.json
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\bin\Debug\netcoreapp2.1\WebHost.Customization.dll
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\bin\Debug\netcoreapp2.1\WebHost.Customization.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\obj\Debug\netcoreapp2.1\WebHost.Customization.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\obj\Debug\netcoreapp2.1\WebHost.Customization.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\obj\Debug\netcoreapp2.1\WebHost.Customization.AssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\obj\Debug\netcoreapp2.1\WebHost.Customization.dll
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\obj\Debug\netcoreapp2.1\WebHost.Customization.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\BuildingBlocks\WebHost\WebHost.Customization\obj\Debug\netcoreapp2.1\WebHost.Customization.csprojAssemblyReference.cache

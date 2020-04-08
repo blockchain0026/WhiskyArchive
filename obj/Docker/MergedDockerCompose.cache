@@ -1,0 +1,151 @@
+services:
+  identity.api:
+    build:
+      context: C:\Users\User\source\repos\WhiskyArchive
+      dockerfile: src/Services/Identity/Identity.API/Dockerfile
+    depends_on:
+    - sql.data
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '44327'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      IdentityUrlHC: http://identity.api/hc
+      MvcClient: https://localhost:44319
+      WebWhiskyArchiveAggClient: http://localhost:57684
+      WhiskyRecordingApiClient: https://localhost:44356
+      WhiskyRecordingUrlHC: http://whiskyrecording.api/hc
+    image: whiskyarchive/identity.api:latest
+    ports:
+    - published: 50544
+      target: 80
+    - published: 44327
+      target: 443
+    volumes:
+    - C:\Users\User\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\User\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  rabbitmq:
+    image: rabbitmq:3.7.2-management
+    ports:
+    - published: 4369
+      target: 4369
+    - published: 5671
+      target: 5671
+    - published: 5672
+      target: 5672
+    - published: 15671
+      target: 15671
+    - published: 8080
+      target: 15672
+  sql.data:
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: 1Secure*Password1
+    image: microsoft/mssql-server-linux:2017-latest
+    ports:
+    - published: 5432
+      target: 1433
+  webmvc:
+    build:
+      context: C:\Users\User\source\repos\WhiskyArchive
+      dockerfile: src/Web/WebMVC/Dockerfile
+    depends_on:
+    - webwhiskyarchiveagg
+    - webwhiskyarchiveapigw
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '44319'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      IdentityUrl: http://10.0.75.1:50544
+      IdentityUrlHC: http://identity.api/hc
+      WhiskyArchiveUrl: http://webwhiskyarchiveapigw
+      WhiskyRecordingUrl: http://whiskyrecording.api/hc
+      WhiskyRecordingUrlHC: http://whiskyrecording.api/hc
+    image: whiskyarchive/webmvc:latest
+    ports:
+    - published: 51015
+      target: 80
+    - published: 44319
+      target: 443
+    volumes:
+    - C:\Users\User\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\User\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  webwhiskyarchiveagg:
+    build:
+      context: C:\Users\User\source\repos\WhiskyArchive
+      dockerfile: src/ApiGateways/Web.Bff.WhiskyArchive/Web.WhiskyArchive.HttpAggregator/Dockerfile
+    depends_on:
+    - identity.api
+    - rabbitmq
+    - sql.data
+    - whiskyrecording.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '44361'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      IdentityUrlExternal: http://localhost:50544
+      IdentityUrlHC: http://identity.api/hc
+      WhiskyRecordingUrlHC: http://whiskyrecording.api/hc
+      urls__identity: http://identity.api
+      urls__whiskyrecords: http://whiskyrecording.api
+    image: whiskyarchive/webwhiskyarchiveagg:latest
+    ports:
+    - published: 57684
+      target: 80
+    - published: 44361
+      target: 443
+    volumes:
+    - C:\Users\User\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\User\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  webwhiskyarchiveapigw:
+    build:
+      context: C:\Users\User\source\repos\WhiskyArchive
+      dockerfile: src/ApiGateways/ApiGw-Base/OcelotApiGw/Dockerfile
+    depends_on:
+    - identity.api
+    - rabbitmq
+    - sql.data
+    - whiskyrecording.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '44397'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      IdentityUrl: http://identity.api
+      IdentityUrlHC: http://identity.api/hc
+      WhiskyRecordingUrlHC: http://whiskyrecording.api/hc
+    image: whiskyarchive/ocelotapigw:latest
+    ports:
+    - published: 53277
+      target: 80
+    - published: 44397
+      target: 443
+    volumes:
+    - C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\apigw:/app/configuration:rw
+    - C:\Users\User\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\User\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  whiskyrecording.api:
+    build:
+      context: C:\Users\User\source\repos\WhiskyArchive
+      dockerfile: src/Services/WhiskyRecording/WhiskyRecording.API/Dockerfile
+    depends_on:
+    - identity.api
+    - rabbitmq
+    - sql.data
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '44356'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      IdentityUrlExternal: http://localhost:50544
+      IdentityUrlHC: http://identity.api/hc
+      WhiskyRecordingUrlHC: http://whiskyrecording.api/hc
+      identityUrl: http://identity.api
+    image: whiskyarchive/whiskyrecording.api:latest
+    ports:
+    - published: 58983
+      target: 80
+    - published: 44356
+      target: 443
+    volumes:
+    - C:\Users\User\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\User\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'

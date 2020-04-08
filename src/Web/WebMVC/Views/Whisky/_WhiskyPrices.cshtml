@@ -1,0 +1,45 @@
+﻿@model WebMVC.ViewModels.WhiskyViewModels.CreateViewModel
+
+<section class="esh-orders_new-section">
+    <article class="esh-orders_new-titles row">
+        <section class="esh-orders_new-title col-12">價格紀錄</section>
+    </article>
+    @for (int i = 0; i < Model.WhiskyPrices.Count; i++)
+    {
+        var item = Model.WhiskyPrices[i];
+
+    <article class="esh-orders_new-items esh-orders_new-items--border row">
+        <!--<section class="esh-orders_new-item col-md-4 hidden-md-down">
+    <img class="esh-orders_new-image" src="@@item.PictureUrl">
+    <input type="hidden" value="@@item.PictureUrl" name=@@("orderitems[" + i + "].PictureUrl") />
+    </section>-->
+        <section class="esh-orders_new-item esh-orders_new-item--middle col-4">
+            @item.Price
+            <input type="hidden" value="@item.Price" name=@("whiskyprices[" + i + "].Price") />
+        </section>
+
+        <section class="esh-orders_new-item esh-orders_new-item--middle col-1">
+            @item.Currency
+            <input type="hidden" value="@item.Currency" name=@("whiskyprices[" + i + "].Currency") />
+        </section>
+        <section class="esh-orders_new-item esh-orders_new-item--middle col-1">
+            $ @item.PriceReference
+            <input type="hidden" value="@item.PriceReference" name=@("whiskyprices[" + i + "].PriceReference") />
+        </section>
+        
+    </article>
+    }
+</section>
+<section class="esh-orders_new-section esh-orders_new-section--right">
+    <article class="esh-orders_new-titles row">
+        <section class="esh-orders_new-title col-9"></section>
+        <section class="esh-orders_new-title col-2">Total</section>
+    </article>
+    <article class="esh-orders_new-items row">
+        <section class="esh-orders_new-item col-9"></section>
+        <section class="esh-orders_new-item esh-orders_new-item--mark col-2">
+            TEST
+            
+        </section>
+    </article>
+</section>

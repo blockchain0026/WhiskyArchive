@@ -1,0 +1,70 @@
+replicaCount: 1
+clusterName: whiskyarchive
+pathBase: /identity
+
+image:
+  repository: blockchain0026/identity.api
+  tag: dev
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - chart-example.local
+  tls: []
+
+resources: {}
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env:
+  urls:
+  configmap:
+    - name: ConnectionString
+      key: identity__ConnectionString
+    - name: MvcClient
+      key: mvc_e
+    - name: WhiskyRecordingApiClient
+      key: whiskyrecording_e
+    - name: WebWhiskyArchiveAggClient
+      key: webwhiskyarchiveagg_e
+    - name: EnableDevspaces
+      key: enableDevspaces
+    - name: WhiskyArchiveUrlHC
+      key: internalurls__apigwww__hc
+    - name: IdentityUrlHC
+      key: internalurls__identity__hc
+    - name: WhiskyRecordingUrlHC
+      key: internalurls__whiskyrecording__hc
+  values:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: Development
+    - name: OrchestratorType
+      value: 'K8S'
+    - name: IsClusterEnv
+      value: 'True'
+
+#probes:
+#  liveness:
+#    path: /liveness
+#    initialDelaySeconds: 10
+#    periodSeconds: 15
+#    port: 80
+#  readiness:
+#    path: /hc
+#    timeoutSeconds: 5
+#    initialDelaySeconds: 90
+#    periodSeconds: 60
+#    port: 80
+
+enableDevspaces: "false"

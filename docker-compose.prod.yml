@@ -1,0 +1,83 @@
+version: '3.4'
+
+services:
+  sql.data:
+    environment:
+      - MSSQL_SA_PASSWORD=1Secure*Password1
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+
+  rabbitmq:
+
+  identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://0.0.0.0:80
+      - ASPNETCORE_HTTPS_PORT=44327
+      - MvcClient=http://localhost:51015
+      - WhiskyRecordingApiClient=https://localhost:44356
+      - WebWhiskyArchiveAggClient=http://localhost:57684
+    ports:
+      - "50544:80"
+      - "44327:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  whiskyrecording.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44356
+      - identityUrl=http://identity.api
+      - IdentityUrlExternal=http://localhost:50544
+    ports:
+      - "80"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  webmvc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44319
+      - IdentityUrl=http://10.0.75.1:50544  # Local Mac: Use http://docker.for.mac.localhost:5105 || Local Windows:  Use 10.0.75.1 in a "Docker for Windows" environment, if using "localhost" from browser. || #Remote access: Use ${ESHOP_EXTERNAL_DNS_NAME_OR_IP} if using external IP or DNS name from browser.
+      - WhiskyArchiveUrl=http://webwhiskyarchiveapigw
+      - WhiskyRecordingUrl=http://whiskyrecording.api/hc
+      - IdentityUrlHC=http://identity.api/hc     #Local: Use ${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}, if using external IP or DNS name from browser.     
+      - WhiskyRecordingUrlHC=http://whiskyrecording.api/hc
+    ports:
+      - "51015:80"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  webwhiskyarchiveapigw:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44397
+      - IdentityUrl=http://identity.api
+    ports:
+      - "53277:80"
+      - "44397:443"
+    volumes:
+      - ./src/ApiGateways/Web.Bff.WhiskyArchive/apigw:${ESHOP_OCELOT_VOLUME_SPEC:-/app/configuration}
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  webwhiskyarchiveagg:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44361
+      - urls__whiskyrecords=http://whiskyrecording.api
+      - urls__identity=http://identity.api              #Local: You need to open your local dev-machine firewall at range 5100-5110.
+      - IdentityUrlExternal=http://localhost:50544
+    ports:
+      - "57684:80"
+      - "44361:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

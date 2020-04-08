@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: externalcfg
+  labels:
+    app: whiskyarchive
+data:
+# Identity.API entries
+  IdentitySqlDb: Server=sql.data;Database=whiskyarchive.identitydb;User Id=sa;Password=1Secure*Password1
+# WhiskyRecording.API entries
+  WhiskyRecordingBus: rabbitmq
+  WhiskyRecordingSqlDb: Server=sql.data;Database=whiskyarchive.whiskyrecording;User Id=sa;Password=1Secure*Password1
+  GracePeriodManager_GracePeriodTime: "1"
+  GracePeriodManager_CheckUpdateTime: "15000"
+# Global entries
+  all_UseAzureServiceBus: FALSE
+  all_EventBusConnection: rabbitmq

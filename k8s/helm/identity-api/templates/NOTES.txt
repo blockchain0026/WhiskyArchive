@@ -1,0 +1,4 @@
+WhiskyArchive Identity API installed.
+-----------------------------
+
+Access this API through ingress.

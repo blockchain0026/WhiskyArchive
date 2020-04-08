@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: internalurls
+  labels:
+    app: whiskyarchive  
+data:
+# Internal Services & healthchecks
+  identity: http://identity
+  identity__hc: http://identity/hc
+  whiskyrecording: http://whiskyrecording
+  whiskyrecording__hc: http://whiskyrecording/hc
+  mvc__hc: http://webmvc/hc
+# Aggreggators
+  webwhiskyarchiveagg: http://webwhiskyarchiveagg
+# API GWs
+  apigwww: http://ocelotapigw-ww

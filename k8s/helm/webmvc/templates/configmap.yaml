@@ -1,0 +1,25 @@
+{{- $name := include "webmvc.fullname" . -}}
+{{- $identity := include "url-of" (list .Values.app.ingress.entries.identity .) -}}
+{{- $webwhiskyarchiveapigw := include "url-of" (list .Values.app.ingress.entries.webwhiskyarchiveapigw .) -}}
+{{- $mvc := include "url-of" (list .Values.app.ingress.entries.mvc .) -}}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "webmvc.name" . }}
+    chart: {{ template "webmvc.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
+  all_EnableLoadTest: "{{ .Values.inf.misc.useLoadTest }}"
+  internalurls__apigwww: http://{{ .Values.app.svc.webwhiskyarchiveapigw }}
+  internalurls__apigwww__hc: http://{{ .Values.app.svc.webwhiskyarchiveapigw }}/hc
+  internalurls__identity__hc: http://{{ .Values.app.svc.identity }}/hc
+  internalurls__whiskyrecording__hc: http://{{ .Values.app.svc.whiskyrecording }}/hc
+  urls__apigwww: http://{{ $webwhiskyarchiveapigw }}
+  urls__mvc: http://{{ $mvc }}
+  urls__IdentityUrl: http://{{ $identity }}

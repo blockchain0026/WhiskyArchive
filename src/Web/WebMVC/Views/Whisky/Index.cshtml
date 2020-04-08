@@ -1,0 +1,232 @@
+﻿@{
+    ViewData["Title"] = "威士忌檔案";
+    @model WebMVC.ViewModels.WhiskyViewModels.IndexViewModel
+}
+
+<main role="main" class="container" >
+    <!--<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-secondary rounded box-shadow">
+        <img class="mr-3" src="~/images/brand.png" alt="" width="48" height="48">
+
+
+    </div>-->
+
+    <div class="container-fluid p-0" style="">
+        <div class="row ">
+            <div class="w-100  box-shadow rounded bg-gradient-dark-transparent-50 text-shadow" style="">
+                <div class="navbar navbar-expand-lg navbar-dark container w-100 py-2 my-1" style="">
+                    <div class="w-25">
+                        <button class="navbar-toggler float-left" type="button" data-toggle="collapse" data-target="#filter" aria-controls="filter" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+
+                    <h4 class="text-light w-50 text-center navbar-dark font-weight-bold my-0">
+                        威士忌檔案
+                    </h4>
+
+                    <form asp-controller="Whisky" asp-action="Create" class="float-right w-25" method="get">
+
+                        <input class="btn btn-outline-light w-100 @((!User.Identity.IsAuthenticated) ? "is-disabled" : "")" type="submit" value="建立威士忌" style="" />
+
+                    </form>
+                </div>
+
+                <nav class="navbar navbar-expand-lg navbar-light text-dark  pb-0 mb-0">
+                    <div class="container  pb-0 mb-0">
+
+
+                        <div class="collapse navbar-collapse pb-0 mb-0" id="filter">
+                            <form asp-action="Index" asp-controller="Whisky" method="post" class=" pb-0 mb-0">
+                                <div class="form-row  pb-0 mb-0">
+                                    <div class="col-sm-2">
+                                        <div class="nav-item form-group">
+                                            <select asp-for="Distillery" asp-items="@Model.Distilleries" class="form-control input-dark-transparent-75"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="Bottler" class="form-control input-dark-transparent-75" type="text" placeholder="裝瓶廠" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="Vintage" class="form-control input-dark-transparent-75" type="text" placeholder="年份" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="StatedAge" class="form-control input-dark-transparent-75" type="text" placeholder="陳年" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="CaskType" class="form-control input-dark-transparent-75" type="text" placeholder="桶型" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="CaskNumber" class="form-control input-dark-transparent-75" type="text" placeholder="桶號" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="NumberOfBottles" class="form-control input-dark-transparent-75" type="text" placeholder="發行量" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="Strength" class="form-control input-dark-transparent-75" type="text" placeholder="強度" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="Size" class="form-control input-dark-transparent-75" type="text" placeholder="大小" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="Market" class="form-control input-dark-transparent-75" type="text" placeholder="市場" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="nav-item form-group">
+                                            <input asp-for="Bottled" class="form-control input-dark-transparent-75" type="text" placeholder="裝瓶時間" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="nav-item form-group text-dark">
+                                            <input class="" type="image" src="~/images/arrow-right.svg" placeholder=">" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </nav>
+
+                @Html.Partial("_pagination", Model.PaginationInfo)
+            </div>
+
+            <div class="row w-100 m-0">
+                @if (Model.Whiskies.Count() != 0)
+                {
+                    var whiskies = Model.Whiskies.ToList();
+                    foreach (var whisky in Model.Whiskies)
+                    {
+                        <div class="col-sm-3">
+
+                            @Html.Partial("_record", whisky)
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="w-100 mt-2">
+                @Html.Partial("_pagination", Model.PaginationInfo)
+            </div>
+        </div>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+
+        <h6 class="border-bottom border-gray pb-2 mb-0">近期更新</h6>
+        @if (Model.Whiskies.Count() > 0)
+        {
+
+            @foreach (var whisky in Model.Whiskies)
+            {
+                <div class="media text-muted pt-3">
+                    <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="@(whisky.WhiskyImages.FirstOrDefault()?? Url.Content("~/images/whisky_default.png"))" data-holder-rendered="true">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">@whisky.WhiskyNameChinese</strong>
+                        來自 @whisky.Distillery 蒸餾廠
+                        @if (!string.IsNullOrEmpty(whisky.Bottler))
+                        {
+                            var text = "，" + whisky.Bottler + "裝瓶";
+                            @text.ToString()
+                        }
+                        @if (whisky.StatedAge != null)
+                        {
+                            @if (!string.IsNullOrEmpty(whisky.CaskType))
+                            {
+                                var text = "，" + whisky.StatedAge + "年" + whisky.CaskType + "陳釀";
+                                @text
+                            }
+                            else
+                            {
+                                var text = "，" + whisky.StatedAge + "年陳釀";
+                                @text
+                            }
+                        }
+                        @if (whisky.Strength != 0)
+                        {
+                            if (whisky.Size != 0)
+                            {
+                                var text = "，" + (whisky.Strength * 100).ToString() + "%強度、" + whisky.Size.ToString() + "ML";
+                                @text
+                            }
+                            else
+                            {
+                                var text = "，" + (whisky.Strength * 100).ToString() + "%強度";
+                                @text
+                            }
+                        }
+                        @if (!string.IsNullOrEmpty(whisky.CaskNumber))
+                        {
+                            var text = "，桶號" + whisky.CaskNumber;
+                            @text
+                        }
+
+                        @if (whisky.WhiskyBaseRating != 0)
+                        {
+                            var rating = whisky.WhiskyBaseRating;
+                            var threshold = 90;
+                            var text = "，" + "Whisky Base " + rating.ToString();
+                            if (rating > threshold)
+                            {
+                                text += " 高分";
+                            }
+                            else
+                            {
+                                text += " 評分";
+                            }
+
+                            @text
+                        }
+
+                        @if (whisky.NumOfBottles != null)
+                        {
+                            var text = "，限量" + whisky.NumOfBottles.ToString() + "瓶";
+                            @text
+                        }
+
+                        。
+                    </p>
+                </div>
+            }
+
+        }
+        else
+        {
+            <div class="esh-catalog-items row ml-1">
+                查無結果
+            </div>
+        }
+            <small class="d-block text-right mt-3">
+                <a asp-area="" asp-controller="Whisky" asp-action="Index">
+                    查看全部
+                </a>
+            </small>
+    </div>
+    
+
+</main>

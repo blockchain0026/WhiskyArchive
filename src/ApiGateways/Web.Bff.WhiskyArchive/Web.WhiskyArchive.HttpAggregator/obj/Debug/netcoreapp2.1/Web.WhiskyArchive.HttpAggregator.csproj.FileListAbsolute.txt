@@ -1,0 +1,15 @@
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\bin\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.deps.json
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\bin\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.runtimeconfig.json
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\bin\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.runtimeconfig.dev.json
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\bin\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.dll
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\bin\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.RazorAssemblyInfo.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.RazorAssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.AssemblyInfo.cs
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.RazorTargetAssemblyInfo.cache
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.dll
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.pdb
+C:\Users\User\source\repos\WhiskyArchive\src\ApiGateways\Web.Bff.WhiskyArchive\Web.WhiskyArchive.HttpAggregator\obj\Debug\netcoreapp2.1\Web.WhiskyArchive.HttpAggregator.csprojAssemblyReference.cache

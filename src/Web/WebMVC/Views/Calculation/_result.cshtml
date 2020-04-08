@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebMVC.ViewModels.CalculationResult>
+
+
+<div class="box-shadow table-responsive rounded mb-lg-5 mt-5">
+
+    <table class="table">
+        <thead class="" style="border: 0">
+            <tr>
+                <th>
+                    得標價
+                </th>
+                <th>
+                    拍賣會佣金
+                </th>
+                <th>
+                    運費
+                </th>
+                <th>
+                    運送保證費
+                </th>
+                <th>
+                    刷卡附加費
+                </th>
+                <th>
+                    增值稅(VAT)
+                </th>
+                <th>
+                    關稅
+                </th>
+                <th>
+                    菸酒稅
+                </th>
+                <th>
+                    營業稅
+                </th>
+                <th>
+                    代墊費
+                </th>
+                <th>
+                    總成本
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WinPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryFee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Insurance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentSurcharge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VAT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customs)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TobaccoAlcoholTax)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BusinessTax)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdvancePayment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

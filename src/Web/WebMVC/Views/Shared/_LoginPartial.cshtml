@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMVC.ViewModels
+@using WebMVC.Services
+
+@inject IIdentityParser<ApplicationUser> UserManager
+@*@if (Context.User.Identity.IsAuthenticated)*@
+@if (User.FindFirst(x => x.Type == "preferred_username") != null)
+{
+
+    <li class="nav-item text-light mr-1">
+        <form asp-area="" asp-controller="Account" asp-action="SignOut" method="post" id="logoutForm" class="navbar-right">
+
+            <a class="nav-link  font-weight-bold text-light" href="javascript:document.getElementById('logoutForm').submit()">
+                登出
+            </a>
+
+        </form>
+
+    </li>
+    <li class="nav-item mr-3">
+        <div class="nav-link text-light">@User.FindFirst(x => x.Type == "preferred_username").Value</div>
+    </li>
+
+
+}
+else
+{
+    <li class="nav-item mr-3">
+        <a asp-area="" asp-controller="Account" asp-action="SignIn" class="nav-link  font-weight-bold text-light">
+            登入
+        </a>
+        <!--<img src="~/images/brand.png" width="33"  class="nav-link"/>-->
+    </li>
+
+}

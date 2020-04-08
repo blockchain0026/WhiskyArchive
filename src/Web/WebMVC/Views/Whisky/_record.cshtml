@@ -1,0 +1,93 @@
+﻿@model WebMVC.ViewModels.Whisky
+
+<form asp-controller="Whisky" asp-action="Update" method="get" class="card  box-shadow-custom mt-2" name="cardform" style=" height:320px; background-color:rgba(255, 255, 255, 0.90);">
+    <a class="w-100 text-center" href="@Url.Action("Detail", "Whisky",new {whiskyId=Model.WhiskyId})">
+        <img class="card-img-top img-fluid" src="@(Model.WhiskyImages.FirstOrDefault()?? Url.Content("~/images/whisky_default.png"))" alt="Card image cap" style="width:auto; height:200px; overflow:hidden;">
+    </a>
+
+    <div class="card-block " onclick="">
+        <h6 class="card-title my-2 ml-2 font-weight-bold">@Model.WhiskyNameChinese</h6>
+
+
+        <p class="media-body  my-2 ml-2 lh-125 small text-black-50" style="-webkit-line-clamp: 2;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;">
+            來自 @Model.Distillery 蒸餾廠
+            @if (!string.IsNullOrEmpty(Model.Bottler))
+            {
+                var text = "，" + Model.Bottler + "裝瓶";
+                @text.ToString()
+            }
+            @if (Model.StatedAge != null)
+            {
+                @if (!string.IsNullOrEmpty(Model.CaskType))
+                {
+                    var text = "，" + Model.StatedAge + "年" + Model.CaskType + "陳釀";
+                    @text
+                }
+                else
+                {
+                    var text = "，" + Model.StatedAge + "年陳釀";
+                    @text
+                }
+            }
+            @if (Model.Strength != 0)
+            {
+                if (Model.Size != 0)
+                {
+                    var text = "，" + (Model.Strength * 100).ToString() + "%強度、" + Model.Size.ToString() + "ML";
+                    @text
+                }
+                else
+                {
+                    var text = "，" + (Model.Strength * 100).ToString() + "%強度";
+                    @text
+                }
+            }
+            @if (!string.IsNullOrEmpty(Model.CaskNumber))
+            {
+                var text = "，桶號" + Model.CaskNumber;
+                @text
+            }
+
+            @if (Model.WhiskyBaseRating != 0)
+            {
+                var rating = Model.WhiskyBaseRating;
+                var threshold = 90;
+                var text = "，" + "Whisky Base " + rating.ToString();
+                if (rating > threshold)
+                {
+                    text += " 高分";
+                }
+                else
+                {
+                    text += " 評分";
+                }
+
+                @text
+            }
+
+            @if (Model.NumOfBottles != null)
+            {
+                var text = "，限量" + Model.NumOfBottles.ToString() + "瓶";
+                @text
+            }
+
+            。
+        </p>
+
+
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            <div class="w-100 p-1 text-center">
+                <input class="btn btn-outline-dark w-100  " type="submit" value="更改" />
+            </div>
+        }
+        else
+        {
+            <p class="card-text my-2 ml-2 float-right "><small class="text-muted">@Model.DateUpdated.ToShortDateString()</small></p>
+        }
+
+    </div>
+
+    <input type="hidden" asp-for="@Model.WhiskyId" name="whiskyId" />
+</form>

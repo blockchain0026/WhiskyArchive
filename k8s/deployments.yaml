@@ -1,0 +1,214 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: identity
+spec:
+  paused: true
+  template:
+    metadata:
+      labels:
+        app: whiskyarchive
+        component: identity
+    spec:
+      containers:
+      - name: identity
+        image: whiskyarchive/identity.api
+        imagePullPolicy: Always
+        env:
+        - name: PATH_BASE
+          value: /identity
+        - name: ConnectionString
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: identity__ConnectionString
+        - name: IsClusterEnv
+          value: 'True'
+        - name: MvcClient
+          valueFrom:
+           configMapKeyRef:
+             name: cfg-whiskyarchive-identity-api
+             key: mvc_e
+        - name: WhiskyRecordingApiClient
+          valueFrom:
+           configMapKeyRef:
+             name: urls
+             key: whiskyrecording_e
+        - name: WebWhiskyArchiveAggClient
+          valueFrom:
+           configMapKeyRef:
+             name: urls
+             key: webwhiskyarchiveagg_e
+        - name: OrchestratorType
+          value: 'K8S'                            
+        ports:
+        - containerPort: 80
+        
+      imagePullSecrets:
+      - name: registry-key
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: whiskyrecording
+spec:
+  paused: true
+  template:
+    metadata:
+      labels:
+        app: whiskyarchive
+        component: whiskyrecording
+    spec:
+      containers:
+      - name: whiskyrecording
+        image: whiskyarchive/whiskyrecording.api
+        imagePullPolicy: Always
+        env:
+        - name: PATH_BASE
+          value: /whiskyrecording-api
+        - name: ConnectionString
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: whiskyrecording__ConnectionString
+        - name: EventBusConnection
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: all__EventBusConnection
+        - name: AzureServiceBusEnabled
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: all__UseAzureServiceBus
+        - name: IdentityUrl
+          valueFrom:
+           configMapKeyRef:
+             name: urls
+             key: identity_e
+        - name: CheckUpdateTime
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: GracePeriodManager__CheckUpdateTime
+        - name: GracePeriodTime
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: GracePeriodManager__GracePeriodTime
+        - name: UseLoadTest
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: all__EnableLoadTest
+        - name: OrchestratorType
+          value: 'K8S'           
+        ports:
+        - containerPort: 80
+        
+      imagePullSecrets:
+      - name: registry-key
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webmvc
+spec:
+  paused: true
+  template:
+    metadata:
+      labels:
+        app: whiskyarchive
+        component: webmvc
+    spec:
+      containers:
+      - name: webmvc
+        image: whiskyarchive/webmvc
+        imagePullPolicy: Always
+        env:
+        - name: PATH_BASE
+          value: /webmvc
+        - name: IsClusterEnv
+          value: 'True'
+        - name: WhiskyArchiveUrl
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: apigwww   
+        - name: ExternalWhiskyArchiveUrl
+          valueFrom:
+           configMapKeyRef:
+             name: urls
+             key: webwhiskyarchiveapigw_e       
+        - name: CallBackUrl
+          valueFrom:
+           configMapKeyRef:
+             name: cfg-whiskyarchive-webmvc
+             key: urls__mvc
+        - name: IdentityUrl
+          valueFrom:
+           configMapKeyRef:
+             name: cfg-whiskyarchive-webmvc
+             key: urls__IdentityUrl
+        - name: WhiskyRecordingUrl
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: apigwww
+        - name: IdentityUrlHC
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: identity__hc
+        - name: WhiskyRecordingUrlHC
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: whiskyrecording__hc
+        - name: UseLoadTest
+          valueFrom:
+           configMapKeyRef:
+             name: externalcfg
+             key: all__EnableLoadTest
+        - name: OrchestratorType
+          value: 'K8S'
+        ports:
+        - containerPort: 80
+        
+      imagePullSecrets:
+      - name: registry-key
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webwhiskyarchiveagg
+spec:
+  paused: true
+  template:
+    metadata:
+      labels:
+        app: whiskyarchive
+        component: webwhiskyarchiveagg
+    spec:
+      containers:
+      - name: webwhiskyarchiveagg
+        image: whiskyarchive/webwhiskyarchiveagg
+        imagePullPolicy: Always
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://0.0.0.0:80
+        - name: urls__whiskyrecords
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: whiskyrecording             
+        - name: urls__identity
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: identity        
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: registry-key
+---

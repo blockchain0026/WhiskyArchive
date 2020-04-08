@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: apigwww
+spec:
+  paused: true
+  template:
+    metadata:
+      labels:
+        app: ocelotapigw-ww
+        component: apigwww
+    spec:
+      containers:
+      - name: apigwww
+        image: whiskyarchive/ocelotapigw
+        imagePullPolicy: Always
+        env:
+        - name: PATH_BASE
+          value: /webwhiskyarchiveapigw 
+        - name: IdentityUrl
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: identity                         
+        ports:
+        - containerPort: 80   
+        volumeMounts:
+        - name: config
+          mountPath: /app/configuration            
+      volumes:
+      - name: config
+        configMap:
+          name: ocelot
+          items:
+          - key: ww
+            path: configuration.json
+      imagePullSecrets:
+      - name: registry-key

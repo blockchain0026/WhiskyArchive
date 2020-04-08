@@ -1,0 +1,16 @@
+{{- $name := include "apigwww.fullname" . -}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "apigwww.name" . }}
+    chart: {{ template "apigwww.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  internalurls__identity: http://{{ .Values.app.svc.identity }}
+  internalurls__identity__hc: http://{{ .Values.app.svc.identity }}/hc
+  internalurls__whiskyrecording__hc: http://{{ .Values.app.svc.whiskyrecording }}/hc
+

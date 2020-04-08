@@ -1,0 +1,56 @@
+﻿@model WebMVC.ViewModels.Pagination.PaginationInfo
+
+<div class="esh-pager">
+    <div class="container w-100">
+        <article class="esh-pager-wrapper row justify-content-center">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item  bg @((Model.ActualPage == 0) ? "disabled" : "")">
+                        <a class="page-link bg-transparent text-white-50"
+                           id="Previous"
+                           asp-controller="Whisky"
+                           asp-action="Index"
+                           asp-route-page="0"
+                           aria-label="First">
+                            首頁
+                        </a>
+                    </li>
+                    <li class="page-item @((Model.ActualPage == 0) ? "disabled" : "")">
+                        <a class="page-link bg-transparent text-white-50"
+                           id="Previous"
+                           asp-controller="Whisky"
+                           asp-action="Index"
+                           asp-route-page="@(Model.ActualPage -1)"
+                           aria-label="Previous">
+                            上一頁
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link bg-light">@(Model.ActualPage + 1) <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item  @((((Model.TotalPages-1)-Model.ActualPage) <= 0) ? "disabled" : "")">
+                        <a class="page-link bg-transparent text-white-50"
+                           id="Next"
+                           asp-controller="Whisky"
+                           asp-action="Index"
+                           asp-route-page="@(Model.ActualPage + 1)"
+                           aria-label="Next">
+                            下一頁
+                        </a>
+                    </li>
+                    <li class="page-item  @((((Model.TotalPages-1)-Model.ActualPage) <= 0) ? "disabled" : "")">
+                        <a class="page-link bg-transparent text-white-50"
+                           id="Next"
+                           asp-controller="Whisky"
+                           asp-action="Index"
+                           asp-route-page="@(Model.TotalPages-1)"
+                           aria-label="Last">
+                            尾頁
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </article>
+    </div>
+</div>

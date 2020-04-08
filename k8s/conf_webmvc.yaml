@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: externalcfg
+  labels:
+    app: whiskyarchive
+data:
+  whiskyrecording__ConnectionString: Server=sql-data;Database=whiskyarchive.whiskyrecording;User Id=sa;Password=1Secure*Password1;
+  whiskyrecording__AzureStorageEnabled: "False"
+  identity__ConnectionString: Server=sql-data;Database=whiskyarchive.identitydb;User Id=sa;Password=1Secure*Password1;
+  GracePeriodManager__GracePeriodTime: "1"
+  GracePeriodManager__CheckUpdateTime: "15000"
+  all__EventBusConnection: rabbitmq
+  all__InstrumentationKey: ""
+  all__EnableLoadTest: "False"
+  all__UseAzureServiceBus: "False"
+
+
+

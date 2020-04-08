@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: whiskyarchive
+    component: frontend
+  name: whiskyarchive-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"  
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /identity
+        backend:
+          serviceName: identity
+          servicePort: 80
+      - path: /webmvc
+        backend:
+          serviceName: webmvc
+          servicePort: 80
+      - path: /webwhiskyarchiveapigw 
+        backend:
+          serviceName: ocelotapigw-ww
+          servicePort: 80      
+      - path: /webwhiskyarchiveagg
+        backend:
+          serviceName: webwhiskyarchiveagg
+          servicePort: 80                  
+      - path: /
+        backend:
+          serviceName: webmvc
+          servicePort: 80
+                    
+
